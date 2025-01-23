@@ -1,4 +1,4 @@
-﻿using RevStar.Foundation; // For domain types, e.g., DataBatch
+﻿using RevStar.Foundation;
 
 namespace RevStar.Loader;
 
@@ -125,5 +125,10 @@ public class DefaultDataLoader : IDataLoader
 
         // Construct a DataBatch from the lines (no labels in this example)
         return new DataBatch(batchSlice);
+    }
+
+    DataBatch? IDataLoader.GetNextBatch(string partition, int batchSize)
+    {
+        throw new NotImplementedException();
     }
 }

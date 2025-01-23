@@ -1,5 +1,5 @@
-﻿using Xunit;
-using RevStar.Loader;
+﻿using RevStar.Loader;
+using Xunit;
 
 namespace RevStar.Tests.Loader;
 

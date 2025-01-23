@@ -16,12 +16,12 @@ public static class MemoryUtils
     /// <param name="source">The original array.</param>
     /// <param name="chunkSize">The size of each chunk.</param>
     /// <returns>An enumerable of Span segments.</returns>
-    public static IEnumerable<ReadOnlySpan<T>> SplitIntoSpans<T>(T[] source, int chunkSize)
+    public static IEnumerable<ReadOnlyMemory<T>> SplitIntoSpans<T>(T[] source, int chunkSize)
     {
         for (int i = 0; i < source.Length; i += chunkSize)
         {
             int remaining = Math.Min(chunkSize, source.Length - i);
-            yield return new ReadOnlySpan<T>(source, i, remaining);
+            yield return new ReadOnlyMemory<T>(source, i, remaining);
         }
     }
 
