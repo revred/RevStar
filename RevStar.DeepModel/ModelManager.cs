@@ -6,6 +6,8 @@ public class ModelManager
 {
     private object? _model;
     private readonly string _modelDirectory;
+    private bool _isSessionInitialized;
+    private bool _useGPU = false;
 
     public ModelManager(string modelDirectory)
     {
@@ -21,13 +23,14 @@ public class ModelManager
     /// <summary>
     /// Loads a pre-trained model from the specified path.
     /// </summary>
-    /// <param name="modelName">Name of the model to load.</param>
+    /// <param name="modelPath">Full path to the model file.</param>
     /// <returns>True if the model is loaded successfully, otherwise false.</returns>
-    public bool LoadModel(string modelName)
+    public bool LoadModel(string modelPath)
     {
         try
         {
-            string modelPath = Path.Combine(_modelDirectory, modelName + ".json");
+            if (string.IsNullOrWhiteSpace(modelPath))
+                throw new ArgumentException("Model path cannot be null or empty.", nameof(modelPath));
 
             if (!File.Exists(modelPath))
                 throw new FileNotFoundException($"Model file '{modelPath}' not found.");
@@ -35,7 +38,7 @@ public class ModelManager
             string modelJson = File.ReadAllText(modelPath);
             _model = JsonSerializer.Deserialize<dynamic>(modelJson);
 
-            Console.WriteLine($"Model '{modelName}' loaded successfully.");
+            Console.WriteLine($"Model loaded successfully from '{modelPath}'.");
             return true;
         }
         catch (Exception ex)
@@ -46,33 +49,64 @@ public class ModelManager
     }
 
     /// <summary>
-    /// Trains a model using the specified dataset and parameters.
+    /// Initializes a session for running inferences.
     /// </summary>
-    /// <param name="datasetPath">Path to the training dataset.</param>
-    /// <param name="parameters">Training parameters as a dictionary.</param>
-    /// <returns>True if training is successful, otherwise false.</returns>
-    public bool TrainModel(string datasetPath, Dictionary<string, object> parameters)
+    /// <param name="useGPU">Specifies whether to use GPU for inference.</param>
+    public void InitializeSession(bool useGPU = false)
     {
         try
         {
-            if (!File.Exists(datasetPath))
-                throw new FileNotFoundException($"Dataset file '{datasetPath}' not found.");
+            if (_model == null)
+                throw new InvalidOperationException("No model loaded. Please load a model before initializing a session.");
 
-            // Simulated training logic (replace with actual implementation).
-            Console.WriteLine($"Training model with dataset '{datasetPath}'...");
-            foreach (var param in parameters)
-            {
-                Console.WriteLine($"Parameter: {param.Key} = {param.Value}");
-            }
+            _useGPU = useGPU;
+            _isSessionInitialized = true;
 
-            _model = new { Name = "TrainedModel", Version = DateTime.UtcNow }; // Placeholder for actual model.
-            Console.WriteLine("Model training completed successfully.");
-            return true;
+            Console.WriteLine("Session initialized successfully." + (useGPU ? " Using GPU." : " Using CPU."));
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error training model: {ex.Message}");
-            return false;
+            Console.WriteLine($"Error initializing session: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Runs inference on the provided inputs.
+    /// </summary>
+    /// <param name="inputs">A list of input arrays for the model.</param>
+    /// <returns>A list of output arrays from the model.</returns>
+    public List<float[]> RunInference(List<float[]> inputs)
+    {
+        try
+        {
+            if (!_isSessionInitialized)
+                throw new InvalidOperationException("Session is not initialized. Please initialize the session before running inference.");
+
+            if (_model == null)
+                throw new InvalidOperationException("No model loaded. Please load a model before running inference.");
+
+            Console.WriteLine("Running inference...");
+
+            // Simulated inference logic (replace with actual implementation).
+            List<float[]> outputs = new List<float[]>();
+            foreach (var input in inputs)
+            {
+                // Example: Mock processing of input data.
+                float[] output = new float[input.Length];
+                for (int i = 0; i < input.Length; i++)
+                {
+                    output[i] = input[i] * 2; // Placeholder logic.
+                }
+                outputs.Add(output);
+            }
+
+            Console.WriteLine("Inference completed successfully.");
+            return outputs;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error running inference: {ex.Message}");
+            return null;
         }
     }
 
