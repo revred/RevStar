@@ -30,3 +30,5 @@ public interface ITokenizer
     /// </summary>
     int VocabSize { get; }
 }
+
+
