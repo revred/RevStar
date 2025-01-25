@@ -75,7 +75,7 @@ public class ModelManager
     /// </summary>
     /// <param name="inputs">A list of input arrays for the model.</param>
     /// <returns>A list of output arrays from the model.</returns>
-    public List<float[]> RunInference(List<float[]> inputs)
+    public IList<float[]>? RunInference(List<float[]> inputs)
     {
         try
         {
