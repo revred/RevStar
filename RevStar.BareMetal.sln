@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevStar.Tests", "RevStar.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevStar.TokenSet", "RevStar.TokenSet\RevStar.TokenSet.csproj", "{314ECE13-7AFA-46D3-9278-3D74674CF5E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevStar.DeepModel", "RevStar.DeepModel\RevStar.DeepModel.csproj", "{0806D392-A522-4C2F-B8E2-9CB1E738647F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{314ECE13-7AFA-46D3-9278-3D74674CF5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{314ECE13-7AFA-46D3-9278-3D74674CF5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{314ECE13-7AFA-46D3-9278-3D74674CF5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0806D392-A522-4C2F-B8E2-9CB1E738647F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0806D392-A522-4C2F-B8E2-9CB1E738647F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0806D392-A522-4C2F-B8E2-9CB1E738647F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0806D392-A522-4C2F-B8E2-9CB1E738647F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
